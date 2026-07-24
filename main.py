@@ -19,7 +19,7 @@ def export_csv(f_import, f_export, log_callback=None):
 
         drawcall_list_Opaque = []
         drawcall_list_Translucency = []
-        drawcall_count_opaque = 0
+        drawcall_count_opaque = 1
         drawcall_count_translucency = 0
         mobile_base_pass = False
         translucency_pass = False
