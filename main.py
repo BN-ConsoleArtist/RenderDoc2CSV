@@ -56,7 +56,7 @@ def export_csv(f_import, f_export, log_callback=None):
         translucency_pass_count = Counter(drawcall_list_Translucency).most_common()
 
         #Print lists to console
-        log_callback(f'\n---------Draw Calls Mobile Base Pass (Total={drawcall_count_opaque}):----------')
+        log_callback(f'\n---------Draw Calls Mobile Base Pass (Total={drawcall_count_opaque})----------')
         for k,v in base_pass_count:
                 print(k,v)
 
@@ -80,6 +80,8 @@ def export_csv(f_import, f_export, log_callback=None):
                 # Write Translucency Section
                 writer.writerow(['Translucency Pass (Total = ' + str(drawcall_count_translucency) + ')', 'Count  '])
                 writer.writerows(translucency_pass_count)
+
+        log_callback("Export completed (" + f_export + ")"  )
 
 
 
