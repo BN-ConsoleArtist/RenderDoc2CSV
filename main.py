@@ -6,14 +6,11 @@ from PySide6.QtWidgets import (QPlainTextEdit, QLineEdit, QLabel, QApplication, 
 
 
 
-def parse_drawcall(l, log_callback=None):
+def parse_drawcall(l):
     """ Returns draw calls in format: "Actor Name" ("Material Name")"""
-    try:
-        parsed_line = l.split('|')[1].split('-')[1].strip().split()
-        return f'{parsed_line[1]} ({parsed_line[0]})'
-    except IndexError:
-        log_callback("Indexing error while parsing drawcalls...")
-        return None
+    parsed_line = l.split('|')[1].split('-')[1].strip().split()
+    return f'{parsed_line[1]} ({parsed_line[0]})'
+
 
 def export_csv(f_import, f_export, log_callback=None):
 
@@ -52,6 +49,7 @@ def export_csv(f_import, f_export, log_callback=None):
                 if translucency_pass == True and 'DrawIndexed' not in line:
                     drawcall_count_translucency += 1
                     drawcall_list_Translucency.append(parse_drawcall(line))
+
             # Sort lists by frequency of draw calls, store in dictionary (key=actor, value=count)
             log_callback("Sorting Drawcalls by number of occurrences...")
             base_pass_count = Counter(drawcall_list_Opaque).most_common()
@@ -65,7 +63,6 @@ def export_csv(f_import, f_export, log_callback=None):
             print(f'\n----------Draw Calls Translucency Pass(Total={drawcall_count_translucency})----------')
             for k,v in translucency_pass_count:
                 print(k,v)
-
 
             #Export to CSV file
             log_callback("Exporting CSV file...")
@@ -198,8 +195,6 @@ class Window(QMainWindow):
         self.button3.setEnabled(False)
         export_csv(self.path_import, self.path_export, self.terminal.appendPlainText)
         self.button3.setEnabled(True)
-
-
 
 
 if __name__ == "__main__":
