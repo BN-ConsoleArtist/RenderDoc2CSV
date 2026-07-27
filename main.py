@@ -7,13 +7,12 @@ from PySide6.QtWidgets import (QPlainTextEdit, QLineEdit, QLabel, QApplication, 
 
 
 def parse_drawcall(l):
-    """ Returns draw calls in format: "Actor Name" ("Material Name")"""
+    # Returns draw calls in format: "Actor Name" ("Material Name")
     parsed_line = l.split('|')[1].split('-')[1].strip().split()
     return f'{parsed_line[1]} ({parsed_line[0]})'
 
 
 def export_csv(f_import, f_export, log_callback=None):
-
     file_path = f_import
     export_path = f_export
 
@@ -90,7 +89,6 @@ def export_csv(f_import, f_export, log_callback=None):
                 log_callback(f"ERROR: Permission denied.")
             except Exception as e:
                 log_callback(f"ERROR: Failed to export CSV. ({str(e)})")
-
 
 
 class Window(QMainWindow):
@@ -198,7 +196,6 @@ class Window(QMainWindow):
 
 
 if __name__ == "__main__":
-
     # Create the application instance
     app = QApplication(sys.argv)
 
